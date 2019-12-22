@@ -5,7 +5,9 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebResourceError;
@@ -16,15 +18,16 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.wassimbh.vikingtest.MainActivity;
 import com.wassimbh.vikingtest.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ArticleFragment extends Fragment {
-
+    private ActionBar abar;
     private WebView mWebview ;
-    private String external_link;
+    private String external_link, name;
     public ArticleFragment() {
         // Required empty public constructor
     }
@@ -37,7 +40,16 @@ public class ArticleFragment extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             external_link = bundle.getString("external_link", "https://google.com");
+            name = bundle.getString("name", "no name");
         }
+        //ActionBar setting
+        MainActivity activity = (MainActivity) getActivity();
+        abar = activity.getAbar();
+        activity.getTextviewTitle().setText(name);
+        abar.setDisplayHomeAsUpEnabled(true);
+
+
+        // Webview settings
         mWebview = (WebView) view.findViewById(R.id.webview);
         mWebview.loadUrl(external_link);
 

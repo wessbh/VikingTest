@@ -3,6 +3,7 @@ package com.wassimbh.vikingtest.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,6 +42,7 @@ public class RecyclerFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerAdapter recyclerAdapter;
     private RequestQueue mQueue;
+    private ActionBar abar;
 
     public RecyclerFragment() {
         // Required empty public constructor
@@ -49,6 +51,13 @@ public class RecyclerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recycler, container, false);
+
+
+        MainActivity activity = (MainActivity) getActivity();
+        abar = activity.getAbar();
+        activity.getTextviewTitle().setText(R.string.app_name);
+        abar.setDisplayHomeAsUpEnabled(false);
+
         recyclerView = view.findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);

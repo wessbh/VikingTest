@@ -6,8 +6,11 @@
 
     <ImageView
         android:id="@+id/img"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        app:layout_constraintDimensionRatio="H,16:9"
         android:scaleType="centerCrop"
         android:src="@drawable/defaultcover"
         app:layout_constraintBottom_toBottomOf="parent"
