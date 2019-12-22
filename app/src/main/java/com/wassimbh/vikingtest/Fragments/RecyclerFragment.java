@@ -62,6 +62,7 @@ public class RecyclerFragment extends Fragment {
                 Article article_clicked = articleList.get(position);
                 Bundle bundle = new Bundle();
                 bundle.putString("external_link", article_clicked.getExternal_link());
+                bundle.putString("name", article_clicked.getName());
                 MainActivity activity = (MainActivity ) getActivity();
                 Fragment articleFragment = new ArticleFragment();
                 articleFragment.setArguments(bundle);
