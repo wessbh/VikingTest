@@ -7,16 +7,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.wassimbh.vikingtest.MainActivity;
 import com.wassimbh.vikingtest.R;
@@ -53,11 +48,12 @@ public class ArticleFragment extends Fragment {
         mWebview = (WebView) view.findViewById(R.id.webview);
         mWebview.loadUrl(external_link);
 
-        // Enable Javascript
         WebSettings webSettings = mWebview.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        mWebview.clearCache(true);
+        webSettings.setDomStorageEnabled(true);
 
-        // Force links and redirects to open in the WebView instead of in a browser
+        // Force links and redirects to open in the WebView instead of a browser
         mWebview.setWebViewClient(new WebViewClient());
 
         return view;

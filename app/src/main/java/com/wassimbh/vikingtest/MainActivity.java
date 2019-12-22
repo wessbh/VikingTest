@@ -1,6 +1,7 @@
 package com.wassimbh.vikingtest;
 
-import android.content.Intent;
+
+import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,10 +23,13 @@ public class MainActivity extends AppCompatActivity {
     public FragmentManager fm;
     private ActionBar abar;
     private TextView textviewTitle;
+    boolean doubleBackToExitPressedOnce;
+    int bsEntry;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        doubleBackToExitPressedOnce = false;
         abar = getSupportActionBar();
         View viewActionBar = getLayoutInflater().inflate(R.layout.custom_toolbar, null);
         ActionBar.LayoutParams params = new ActionBar.LayoutParams(//Center the textview in the ActionBar !
@@ -43,13 +48,17 @@ public class MainActivity extends AppCompatActivity {
         fm.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
-                int bsEntry = fm.getBackStackEntryCount() ;
+                bsEntry = fm.getBackStackEntryCount() ;
+                Log.d("mriGel", "Bs Entry: "+bsEntry);
                 if (bsEntry  > 1) {
                     abar.setDisplayHomeAsUpEnabled(true);
 
                 } else {
                     textviewTitle.setText(R.string.app_name);
                     abar.setDisplayHomeAsUpEnabled(false);
+                }
+                if(bsEntry == 0){
+                    finish();
                 }
             }
         });
@@ -60,9 +69,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void changeFragment(Fragment fragment){
-
         FragmentTransaction transaction =fm.beginTransaction();
-        transaction.add(R.id.frame_container, fragment);
+        transaction.setCustomAnimations(
+                R.animator.enter_from_left,
+                R.animator.exit_to_right,
+                R.animator.enter_from_right,
+                R.animator.exit_to_left);
+        transaction.replace(R.id.frame_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -78,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
     public FragmentManager getFm() {
         return fm;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -85,5 +99,19 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        if(bsEntry == 1){
+            Toast.makeText(this, "Click BACK again to exit", Toast.LENGTH_SHORT).show();
+            this.doubleBackToExitPressedOnce = true;
+        }
+        else
+            super.onBackPressed();
     }
 }

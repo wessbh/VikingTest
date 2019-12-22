@@ -89,7 +89,6 @@ public class RecyclerFragment extends Fragment {
 
 
     public void getArticles() {
-        Log.d("mriGel", "i'm in getArticle()");
         String url = "https://mcc.hu/api/app/article_types/5729fc387fdea7e267fa9761";
         JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET,
@@ -99,7 +98,6 @@ public class RecyclerFragment extends Fragment {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            Log.d("mriGel", "i'm in response");
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject article_json = response.getJSONObject(i);
                                 String id = article_json.getString("id");
@@ -121,7 +119,6 @@ public class RecyclerFragment extends Fragment {
                             recyclerView.setAdapter(recyclerAdapter);
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Log.d("mriGel", "i'm error");
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -132,5 +129,7 @@ public class RecyclerFragment extends Fragment {
         });
         mQueue.add(request);
     }
+
+
 
 }
