@@ -26,15 +26,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/black_rectangle"
         app:layout_constraintTop_toTopOf="@+id/black_rectangle"
         app:layout_constraintEnd_toEndOf="@+id/black_rectangle"
-        app:layout_constraintStart_toStartOf="@+id/black_rectangle"
-        android:orientation="vertical"
-        >
+        app:layout_constraintStart_toStartOf="@+id/black_rectangle">
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
@@ -45,6 +43,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:textSize="17sp"
+            android:layout_alignParentStart="true"
             />
         <TextView
             android:id="@+id/subtitle"
@@ -56,8 +55,10 @@
             android:textColor="@color/white"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:textSize="17sp"
+            android:textSize="14sp"
+            android:layout_below="@+id/name"
+            android:layout_alignParentStart="true"
             />
-    </LinearLayout>
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
